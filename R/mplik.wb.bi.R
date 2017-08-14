@@ -6,7 +6,7 @@ function(par,Y,X,delta,whc) {
           r <- sum(delta)
           z <- (y-X%*%phi)/sigma
 loglikelihood <- -r*log(sigma)+sum((y-X%*%phi)*delta)/sigma-sum(exp((y-X%*%phi)/sigma))
-J <- J.inf.weibul(Y, X, sigma, phi, delta, whc)
+J <- infm.weibul(Y, X, sigma, phi, delta, whc)
 LX <- LX.mat.weibull(Y, X, sigma, phi, delta, whc)
 mplk <- loglikelihood + .5*log(abs(det(J))) -log(abs(det(LX)))
 return(-mplk)

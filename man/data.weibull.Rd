@@ -1,27 +1,55 @@
 \name{data.weibull}
 \alias{data.weibull}
-\title{Random Data Set Generating Function}
-\description{Generate random data set of weibull distributed failure time, covariates and corresponding censoring status. Covariates are drawn from uniform(0, 1) distribution and the shape parameter is fixed at value 2. All regression parameters are set to 1. The parameters are chosen arbitrarily.}
-\usage{data.weibull(n, nco)}
-\arguments{
-  \item{n}{Sample size}
-  \item{nco}{number of covariates}}
-\details{The data are generated from weibull distribution.}
-\value{Data frame of weibull distributed failure time, covariates and censoring variable}
-
-\references{
-Islam, M. M. and Khan, M. H. R. (2015). Modified profile likelihood estimation for the weibull regression 
-models in survival analysis. Submitted.
+\title{
+Random data set generating function. 
+}
+\description{
+Generate random data set of weibull distributed failure time, covariates and corresponding censoring status with a given shape and a set of regression parameters. Correlated covariates can also be drawn with a given number of correlated covariates.
+}
+\usage{
+data.weibull(n, shape = 2, regco = c(1, 3), rcen = 0.25, ncorvar = 3, 
+correlated = FALSE)
 }
 
-\author{Mazharul Islam and Hasinur Rahaman Khan}
+\arguments{
+  \item{n}{
+sample size
+}
+  \item{shape}{
+value of shape parameter
+}
+  \item{regco}{
+vector of regression parameters that corresponds to covariates, for correlated = FALSE
+}
+  \item{rcen}{
+censoring rate
+}
+  \item{ncorvar}{
+no of correlated covariates, for correlated = TRUE. See details below.
+}
+  \item{correlated}{
+logical; if true correlated covariates will be generated with a given no of correlated covariates
+}
+}
+\details{
+ncorvar is non required if correlated = FALSE  and regco is not required if correlated = TRUE. 
+}
+\value{
+Data frame with columns:
+\item{ftime}{lifetime data from weibull distribution}
+\item{x}{covariates}
+\item{delta}{censoring status, 0 or 1. A value 0 indicates corresponding observation is censored}
+}
 
-\seealso{data.weibull.reg}
+\author{
+Mazharul Islam and Hasinur Rahaman Khan
+}
 
 \examples{
-# For data generated from Weibull distriution
-dat.w<-data.weibull(n=35,nco=5)
-dat.w
+data.weibull(n = 20)
+data.weibull(n = 20, shape=1.7, regco=c(2,1,3,4))
+data.weibull(n = 20, shape=1.5, ncorvar=4, correlated=TRUE)
 }
-\keyword{Weibull}
-\keyword{Weibull regression model}
+
+\keyword{Simulated Weibull regression data}
+\keyword{Weibull data with correlated covariates}

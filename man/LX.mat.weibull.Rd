@@ -1,36 +1,64 @@
 \name{LX.mat.weibull}
 \alias{LX.mat.weibull}
-\title{Compensating Factor for A Possible Mathematical Disturbance}
-\description{Matrix as a component of modifying part of regression parameters for compensating factor for a possible mathematical disturbance)}
-\usage{LX.mat.weibull(Y, X, sigma, phi, delta, whc)}
-\arguments{
-  \item{Y}{log of Weibull distributed failure times}
-  \item{X}{covariate matrix}
-  \item{sigma}{given value of scale parameter of extreme value distribution}
-  \item{phi}{given values of regression parameters of extreme value distribution}
-  \item{delta}{Censoring status, coded as 0 for censored observation and 1 for uncersored observation}
-  \item{whc}{Set position of regression parameter of interest corresponding predefined covariate matrix. It will take integer value from 1 to number of regression parameters}
+\title{
+Compensating factor for a possible mathematical disturbance}
+\description{
+Matrix as a component of modifying part of regression parameters :compensating factor for a possible mathematical disturbance}
+\usage{
+LX.mat.weibull(Y, X, sigma, phi, delta, whc)
 }
-\value{Matrix of dimension n x n (n is number of regression parameter).}
+\arguments{
+  \item{Y}{
+log of Weibull distributed failure times
+}
+  \item{X}{
+covariate matrix
+}
+  \item{sigma}{
+given value of scale parameter of extreme value distribution
+}
+  \item{phi}{
+given values of regression parameters of extreme value distribution
+}
+  \item{delta}{
+Censoring status, coded as 0(censored observation) and 1(uncersored observation) binary integer variable
+}
+  \item{whc}{
+Set position of regression parameter of interest corresponding predefined covariate matrix. It will take integer value from 1 to number of regression parameters.
+}
+}
+
+\value{
+Matrix of dimension n*n (n is number of regression parameter).
+}
 \references{
-Barndorff-Nielsen (1980). Conditionality resolutions. Biometrika, 67(2), 293-310.
+Barndorff-Nielsen (1980). Conditionality resolutions. Biometrika, 67(2) : 293-310.
 
 Barndorff-Nielsen (1983). On a formula for the distribution of the maximum likelihood
-estimator. Biometrika, 70(2), 343-365.
+estimator. Biometrika, 70(2) : 343-365.
 
-Islam, M. M. and Khan, M. H. R. (2015). Modified profile likelihood estimation for the weibull regression 
+Khan M. H. R. and Shaw J. E. H (2016). Variable selection for survival data with a class of adaptive elastic net techniques. Statistics and Computing, 26(3): 725-741.
+
+Islam, M. M., Khan, M. H. R. and Hawlader T. (2015). Modified profile likelihood estimation for the weibull regression 
 models in survival analysis. Submitted.
 }
 \author{
 Mazharul Islam and Hasinur Rahaman Khan
 }
 
-\seealso{J.inf.weibul}
 
+\seealso{
+J.inf.weibul}
 \examples{
-dat <- data.weibull(n=35,nco=3) # create dummy data with 3 covariates
-par<-c(1,1,1,1,1)
-lxmw<-LX.mat.weibull(Y=log(dat$ftime),X=model.matrix(ftime~x1+x2+x3,data=dat),
+dat <- data.weibull(n = 20, shape=2, regco=c(2,1.5,3,2.5))
+
+par=c(1,1,1,1,1,1)
+
+LX.mat.weibull(Y=log(dat$ftime),X=model.matrix(ftime~x1+x2+x3+x4,data=dat),
 sigma=2,phi=matrix(par[-1],ncol=1),delta=dat$delta,whc=2)
-lxmw
+
+par=c(1,1,1)
+
+LX.mat.weibull(Y=log(dat$ftime),X=model.matrix(ftime~x1,data=dat),sigma=2,
+phi=matrix(par[-1],ncol=1),delta=dat$delta,whc=2)
 }

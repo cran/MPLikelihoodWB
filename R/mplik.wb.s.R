@@ -3,7 +3,7 @@ function(par,Y,X,delta){
          y <- log(Y) 
      sigma <- exp(par[1])
        phi <- matrix(par[-1],ncol=1)
-         p <- nrow(phi)         
+         p <- nrow(phi)        #no of nuisance parameter 
          r <- sum(delta)
          z <- as.vector((y-X%*%phi)/sigma)
          Z <- diag(exp(z))
